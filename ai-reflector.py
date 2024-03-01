@@ -19,9 +19,8 @@ script_dir = os.path.dirname(os.path.abspath(__file__))  # Get the absolute path
 langchain_api_key = os.path.join(script_dir, "langchain_api_key.txt")
 fireworks_api_key = os.path.join(script_dir, "fireworks_api_key.txt")
 
-os.environ["LANGCHAIN_API_KEY"] = read_file(langchain_api_key)
-os.environ["FIREWORKS_API_KEY"] = read_file(fireworks_api_key)
-
+os.environ["LANGCHAIN_API_KEY"] = read_file(langchain_api_key) #set your own Langchain API key
+os.environ["FIREWORKS_API_KEY"] = read_file(fireworks_api_key) #set your own Fireworks API key
 
 
 from langchain_community.chat_models.fireworks import ChatFireworks
@@ -42,7 +41,7 @@ prompt = ChatPromptTemplate.from_messages(
     ]
 )
 llm = ChatFireworks(
-    model="accounts/fireworks/models/mixtral-8x7b-instruct",   #fireworks has a significant number of LLMs to chose from
+    model="accounts/fireworks/models/mixtral-8x7b-instruct",   #fireworks has a significant number of LLMs to chose from, test drive diffferent ones
     model_kwargs={"max_tokens": 32768},
 )
 generate = prompt | llm
@@ -71,7 +70,7 @@ def initialize_reflector():
 
   #write initial essay
   request = HumanMessage(
-  content="Write an essay on the history of Canada." #time to learn a bit about your norther neighbor
+  content="Write an essay on the history of Canada." #time to learn a bit about your northern neighbor
     )
   for chunk in generate.stream({"messages": [request]}):
       #print(chunk.content, end="")
@@ -93,7 +92,9 @@ def iterate(request, essay, reflection, score):
   revised_essay = essay
   s_score = ""
   revision_count = 0
-  while score < 95:
+  target_score = 95 #adjust this as needed
+    
+  while score < target_score: #
       # Initialize a variable to hold the latest revision
       latest_revision = ""
 
