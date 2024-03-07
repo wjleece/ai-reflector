@@ -70,7 +70,7 @@ def initialize_reflector():
 
   #write initial essay
   request = HumanMessage(
-  content="Write an essay on the history of Canada." #time to learn a bit about your northern neighbor
+  content="Write an essay on the history of Canada." #time to learn a bit about your northern neighbour
     )
   for chunk in generate.stream({"messages": [request]}):
       #print(chunk.content, end="")
